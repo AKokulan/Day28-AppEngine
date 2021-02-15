@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+
+{% block upload %}
+<div class="row my-5">
+    <div class="col-0 col-md-12"></div>
+    <div class="col-12 col-md-4 border">
+        <p > Username:
+            {{ user.username }}
+        </p>
+        <p> Email:
+            {{ user.email  }}
+        </p>
+        <p> Firstname:
+            {{ user.first_name    }}
+        </p>
+        <p> Lastname:
+            {{ user.last_name  }}
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+

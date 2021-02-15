@@ -1,0 +1,443 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+Day28 - Articles
+{% endblock title %}
+
+{% block upload %}
+   <! news body>
+  	<div class=" container mt-3  text-justify ">
+
+				<! header row>
+				<div class="row  ">
+					<div class="col-12 text-justify px-0">
+						<h3 class="d-none d-md-block font-weight-bold text-justify "> {{ main_art_m.article_header }}</h3>
+						<h4 class="d-block d-md-none font-weight-bold text-justify "> {{ main_art_m.article_header }}</h4>
+						<hr>
+					</div>
+				</div>
+
+				<!--first row || text -image-->
+				{% if  main_art_m.article_body|truncatewords_c:"0,90" %}
+					<div class="row">
+						<!--image 1 only visible in sx % sm-->
+						<div class="col-12 px-0 d-block d-md-none">
+							<! image 1>
+							<div class="row  ">
+								<div class="col-12 col-md-6 ">
+									<img src="{% static main_art_m.image1|to_str_c %}" class=" img-fluid  d-block d-md-none" alt="Image Not Available">
+								</div>
+
+							</div>
+						</div>
+					<!--first para -->
+						<div class="col-12 col-md-6 px-0">
+							<p>
+								{{ main_art_m.article_body|truncatewords_c:"0,90" }}
+							</p>
+
+						</div>
+						<!--image 1 || only visible in md and above -->
+						<div class="col-6 px-0 d-none d-md-block">
+							<! image 1>
+							<div class="row  ">
+								<div class="col-12 col-md-6 ml-md-2 my-md-2">
+									<img src="{% static main_art_m.image1|to_str_c %}" class="main-image d-none d-md-block" alt="Image Not Available">
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+				{% endif %}
+
+				<!--second row || list -text -->
+				{% if  main_art_m.article_body|truncatewords_c:"90,200" %}
+					<div class="row pt-2 ">
+					<!--list of important news -->
+					<div class="col-12 col-md-3 text-justify px-0 ">
+						<h6 class="font-weight-bold pt-1">Trending </h6>
+						<ul class="list-group">
+							{% for each in trending_article_m %}
+								{% if forloop.counter == 1%}
+									<li class="list-group-item"> <a href="" > {{ each.article_header|truncatewords:"25" }}</a> </li>
+								{% endif %}
+								{% if forloop.counter == 2 %}
+									<li class="list-group-item"> <a href="" > {{ each.article_header|truncatewords:"25" }}</a> </li>
+								{% endif %}
+								{% if forloop.counter == 3 %}
+									<li class="list-group-item"> <a href="" > {{ each.article_header|truncatewords:"25" }}</a> </li>
+								{% endif %}
+							{% endfor %}
+						</ul>
+					</div>
+					<!--second para-->
+					<div class="col-12 col-md-9  pl-2">
+						<p class="text-justify">
+							{{ main_art_m.article_body|truncatewords_c:"90,200" }}
+						</p>
+					</div>
+				</div>
+				{% endif %}
+
+				<!--third row || text -->
+				{% if  main_art_m.article_body|truncatewords_c:"200,270" %}
+				<div class="row">
+					<div class="col-12 px-0">
+						<p class="text-justify">
+							{{ main_art_m.article_body|truncatewords_c:"200,270" }}
+						</p>
+
+					</div>
+
+				</div>
+				{% endif %}
+
+
+				<!--4 th row || image -text -->
+				{% if  main_art_m.article_body|truncatewords_c:"270,350" %}
+				<div class="row">
+					{% if  main_art_m.image2  %}
+					<div class="col-12 col-md-6 px-0">
+						<div class="row">
+							<div class="col-12">
+								<img src="{% static main_art_m.image2|to_str_c %}" class="main-image d-none d-md-block" alt="New York">
+								<img src="{% static main_art_m.image2|to_str_c %}" class="d-block d-md-none img-fluid" alt="New York">
+							</div>
+						</div>
+					</div>
+					<div class="col-12 col-md-6 px-0">
+						<p>
+							{{ main_art_m.article_body|truncatewords_c:"270,360" }}
+						</p>
+					</div>
+					{% else %}
+					<div class="col-12 px-0">
+						<p>
+							{{ main_art_m.article_body|truncatewords_c:"270,360" }}
+						</p>
+					</div>
+					{% endif %}
+				</div>
+				{% endif %}
+
+
+
+				<!--fifth row || text-->
+				{% if  main_art_m.article_body|truncatewords_c:"350,500" %}
+				<div class="row">
+					<div class="col-12 px-0">
+						<p>
+							{{ main_art_m.article_body|truncatewords_c:"350,500" }}
+						</p>
+					</div>
+				</div>
+				{% endif %}
+
+
+				<!-- 6 th row || list<more news>  -->
+				<div class="row mt-2 mb-2 ">
+					<div class="col-0 col-md-1"></div>
+					<!--list of important news -->
+					<div class="col-12 col-md-10 text-justify px-0">
+						<h6 class="font-weight-bold pt-1"></h6>
+						<ul class="list-group">
+							{% for each in trending_article_m %}
+								{% if forloop.counter == 4%}
+									<li class="list-group-item"> <a href="" > {{ each.article_header|truncatewords:"100" }}</a> </li>
+								{% endif %}
+								{% if forloop.counter == 5 %}
+									<li class="list-group-item"> <a href="" > {{ each.article_header|truncatewords:"100" }}</a> </li>
+								{% endif %}
+								{% if forloop.counter == 6 %}
+									<li class="list-group-item"> <a href="" > {{ each.article_header|truncatewords:"100" }}</a> </li>
+								{% endif %}
+							{% endfor %}
+						</ul>
+					</div>
+					<div class="col-0 col-md-1"></div>
+				</div>
+
+
+				<!--7 th row ||text -->
+				{% if  main_art_m.article_body|truncatewords_c:"500,570" %}
+				<div class="row">
+					<div class="col-12 px-0">
+						<p>
+							{{ main_art_m.article_body|truncatewords_c:"500,570" }}
+						</p>
+					</div>
+				</div>
+				{% endif %}
+
+				<!--8 th row  - text -image-->
+				{% if  main_art_m.article_body|truncatewords_c:"570,670" %}
+				<div class="row">
+					{% if  main_art_m.image3  %}
+
+						<div class="col-12 col-md-6 px-0">
+							<p>
+								{{ main_art_m.article_body|truncatewords_c:"570,670" }}
+							</p>
+						</div>
+						<div class="col-12 col-md-6 px-0">
+							<div class="row">
+								<div class="col-12 mx-md-2 my-md-2">
+									<img src="{% static main_art_m.image3|to_str_c %}" class="main-image d-none d-md-block" alt="image">
+
+									<img src="{% static main_art_m.image3|to_str_c %}" class="d-block d-md-none img-fluid" alt="image">
+								</div>
+							</div>
+						</div>
+					{% else %}
+						<div class="col-12">
+							<p>
+								{{ main_art_m.article_body|truncatewords_c:"570,670" }}
+							</p>
+						</div>
+					{% endif %}
+				</div>
+				{% else %}
+					<!--
+					<div class="row">
+						{% if main_art_m.image3 %}
+						<div class="col-12 col-md-6 mx-md-2 my-md-2">
+							<img src="{% static 'media/' %}{{main_art_m.image3 }}" class="img-fluid d-none d-md-block" alt="New York">
+							<img src="{% static 'media/' %}{{main_art_m.image3 }}" class="d-block d-md-none img-fluid" alt="New York">
+						</div>
+						{% endif %}
+						{% if main_art_m.image3 %}
+						<div class="col-12 col-md-6 mx-md-2 my-md-2">
+							<img src="{% static 'media/' %}{{main_art_m.image3 }}" class="img-fluid d-none d-md-block" alt="New York">
+							<img src="{% static 'media/' %}{{main_art_m.image3 }}" class="d-block d-md-none img-fluid" alt="New York">
+						</div>
+						{% endif %}
+					</div>
+					<div class="row">
+						{% if main_art_m.image3 %}
+						<div class="col-12 col-md-6 mx-md-2 my-md-2">
+							<img src="{% static 'media/' %}{{main_art_m.image3 }}" class="img-fluid d-none d-md-block" alt="New York">
+							<img src="{% static 'media/' %}{{main_art_m.image3 }}" class="d-block d-md-none img-fluid" alt="New York">
+						</div>
+						{% endif %}
+						{% if main_art_m.image3 %}
+						<div class="col-12 col-md-6 mx-md-2 my-md-2">
+							<img src="{% static 'media/' %}{{main_art_m.image3 }}" class="img-fluid d-none d-md-block" alt="New York">
+							<img src="{% static 'media/' %}{{main_art_m.image3 }}" class="d-block d-md-none img-fluid" alt="New York">
+						</div>
+						{% endif %}
+					</div>
+					-->
+				{% endif %}
+
+				<!--9 th row - text -->
+				{% if  main_art_m.article_body|truncatewords_c:"670,770" %}
+				<div class="row">
+					<div class="col-12 px-0">
+						<p>
+							{{ main_art_m.article_body|truncatewords_c:"670,770" }}
+						</p>
+					</div>
+				</div>
+				{% endif %}
+
+
+
+
+				<!--10 th row image - image -->
+				{% if  main_art_m.image5  %}
+					 <div class="row my-2 ">
+						 <div class="col-0 col-md-1"></div>
+						  <div class="col-12 col-md-5 px-0">
+							<div class="thumbnail">
+							  <a href="">
+								  <img src="{% static main_art_m.image4|to_str_c %}" class="main-image d-none d-md-block" alt="image" style="width:100%">
+
+								  <img src="{% static main_art_m.image4|to_str_c %}" class="d-block d-md-none img-fluid" alt="image" style="width:100%">
+							  </a>
+							</div>
+						  </div>
+						  <div class="col-12 col-md-5 px-0 mt-2 mt-md-0 ml-md-2">
+							<div class="thumbnail">
+							  <a href="">
+								  <img src="{% static main_art_m.image5|to_str_c %}" class="main-image d-none d-md-block" alt="image" style="width:100%">
+								  <img src="{% static main_art_m.image5|to_str_c %}" class="d-block d-md-none img-fluid" alt="image" style="width:100%">
+							  </a>
+							</div>
+						  </div>
+						  <div class="col-md-1"></div>
+					</div>
+				{%  elif main_art_m.image4  %}
+				 <div class="row my-2 ">
+					 <div class="col-0 col-md-3"></div>
+					 <div class="col-12 col-md-6 mt-2 mt-md-0 px-0">
+						<div class="thumbnail">
+						  <a href="">
+							  <img src="{% static main_art_m.image4|to_str_c %}" class="main-image d-none d-md-block" alt="image" style="width:100%">
+
+							  <img src="{% static main_art_m.image4|to_str_c %}" class="d-block d-md-none img-fluid" alt="image" style="width:100%">
+						  </a>
+						</div>
+				  	</div>
+				 </div>
+				{% endif %}
+
+				<!--11 th row - text -->
+				{% if  main_art_m.article_body|truncatewords_c:"770,870" %}
+				<div class="row">
+					<div class="col-12 px-0">
+						<p>
+							{{ main_art_m.article_body|truncatewords_c:"770,870" }}
+						</p>
+					</div>
+				</div>
+				{% endif %}
+
+				<!-- 12 th row - more news-->
+				<div class="row mt-2 mb-2 ">
+					<div class="col-0 col-md-1"></div>
+					<!--list of important news -->
+					<div class="col-12 col-md-10 text-justify ">
+						<h6 class="font-weight-bold pt-1"></h6>
+						<ul class="list-group">
+							{% for each in trending_article_m %}
+								{% if forloop.counter == 4%}
+									<li class="list-group-item"> <a href="" > {{ each.article_header|truncatewords:"100" }}</a> </li>
+								{% endif %}
+								{% if forloop.counter == 5 %}
+									<li class="list-group-item"> <a href="" > {{ each.article_header|truncatewords:"100" }}</a> </li>
+								{% endif %}
+								{% if forloop.counter == 6 %}
+									<li class="list-group-item"> <a href="" > {{ each.article_header|truncatewords:"100" }}</a> </li>
+								{% endif %}
+							{% endfor %}
+						</ul>
+					</div>
+					<div class="col-0 col-md-1"></div>
+				</div>
+
+				<!--13 th row - text -->
+				{% if  main_art_m.article_body|truncatewords_c:"870,970" %}
+				<div class="row">
+					<div class="col-12 px-0">
+						<p>
+							{{ main_art_m.article_body|truncatewords_c:"870,970" }}
+						</p>
+					</div>
+				</div>
+				{% endif %}
+
+				<!--14 th row image - image -->
+				{% if  main_art_m.image7  %}
+					 <div class="row my-2 ">
+						 <div class="col-0 col-md-1"></div>
+						  <div class="col-12 col-md-5 px-0">
+							<div class="thumbnail">
+							  <a href="">
+								  <img src="{% static main_art_m.image6|to_str_c %}" class="main-image d-none d-md-block" alt="image" style="width:100%">
+
+								  <img src="{% static main_art_m.image6|to_str_c %}" class="d-block d-md-none img-fluid" alt="image" style="width:100%">
+							  </a>
+							</div>
+						  </div>
+						  <div class="col-12 col-md-5 mt-2 mt-md-0 ml-md-2 px-0">
+							<div class="thumbnail">
+							  <a href="/w3images/nature.jpg">
+								  <img src="{% static main_art_m.image7|to_str_c %}" class="main-image" alt="image" style="width:100%">
+							  </a>
+							</div>
+						  </div>
+						  <div class="col-md-1"></div>
+					</div>
+				{%  elif main_art_m.image6  %}
+				 <div class="row my-2 ">
+					 <div class="col-md-3"></div>
+					 <div class="col-md-6">
+						<div class="thumbnail">
+						  <a href="">
+							  <img src="{% static main_art_m.image6|to_str_c %}" class="main-image" alt="image" style="width:100%">
+						  </a>
+						</div>
+				  	</div>
+				 </div>
+				{% endif %}
+
+				<!--15 th row - text -->
+				{% if  main_art_m.article_body|truncatewords_c:"970,1150" %}
+				<div class="row">
+					<div class="col-12 px-0">
+						<p>
+							{{ main_art_m.article_body|truncatewords_c:"970,1150" }}
+						</p>
+					</div>
+				</div>
+				{% endif %}
+
+				<!-- 16 th row - more news-->
+				{% if  main_art_m.article_body|truncatewords_c:"1150,10000" %}
+				<div class="row mt-2 mb-2 ">
+					<div class="col-0 col-md-1"></div>
+					<!--list of important news -->
+					<div class="col-12 col-md-10 text-justify px-0 ">
+						<h6 class="font-weight-bold pt-1"></h6>
+						<ul class="list-group">
+							{% for each in trending_article_m %}
+								{% if forloop.counter == 7%}
+									<li class="list-group-item"> <a href="" > {{ each.article_header|truncatewords:"100" }}</a> </li>
+								{% endif %}
+								{% if forloop.counter == 8 %}
+									<li class="list-group-item"> <a href="" > {{ each.article_header|truncatewords:"100" }}</a> </li>
+								{% endif %}
+								{% if forloop.counter == 9 %}
+									<li class="list-group-item"> <a href="" > {{ each.article_header|truncatewords:"100" }}</a> </li>
+								{% endif %}
+							{% endfor %}
+						</ul>
+					</div>
+					<div class="col-0 col-md-1"></div>
+				</div>
+				{% endif %}
+
+				<!--17 th row - text -->
+				{% if  main_art_m.article_body|truncatewords_c:"1150,10000" %}
+				<div class="row">
+					<div class="col-12 px-0">
+						<p>
+							{{ main_art_m.article_body|truncatewords_c:"1150,10000" }}
+						</p>
+					</div>
+				</div>
+				{% endif %}
+
+				<!-- 18 th row -last - more news-->
+				<div class="row mt-2 mb-2 ">
+					<div class="col-0 col-md-1"></div>
+					<!--list of important news -->
+					<div class="col-12 col-md-10 text-justify px-0">
+						<h6 class="font-weight-bold pt-1"></h6>
+						<ul class="list-group">
+							{% for each in trending_article_m %}
+								{% if forloop.counter == 7%}
+									<li class="list-group-item"> <a href="" > {{ each.article_header|truncatewords:"100" }}</a> </li>
+								{% endif %}
+								{% if forloop.counter == 8 %}
+									<li class="list-group-item"> <a href="" > {{ each.article_header|truncatewords:"100" }}</a> </li>
+								{% endif %}
+								{% if forloop.counter == 9 %}
+									<li class="list-group-item"> <a href="" > {{ each.article_header|truncatewords:"100" }}</a> </li>
+								{% endif %}
+							{% endfor %}
+						</ul>
+					</div>
+					<div class="co-0 col-md-1"></div>
+				</div>
+
+
+		</div>
+
+	</div>
+
+{% endblock upload %}

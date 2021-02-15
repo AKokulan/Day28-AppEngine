@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+      <!-- google fonts -->
+      <link href='https://fonts.googleapis.com/css?family=Open Sans | Amiri' rel='stylesheet'>
+
+      {% load static %}
+
+      <!-- custom CSS -->
+      <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+      <title>{% block title %}{% endblock title %}</title>
+
+        <style>
+        p {
+            font-family: 'Amiri'; font-size: 22px;
+        }
+        </style>
+
+
+  </head>
+  <body>
+
+  <! navigation bar>
+  <div class="container-fluid px-0 ">
+		<nav class="navbar navbar-expand-md navbar-dark  bg-dark ">
+		  <div class="container-fluid">
+              <a class="navbar-brand d-inline-block" style="font-family:'Gochi Hand';" href="{% url 'show_home' %}">
+                <img src="{% static 'images/logo2.png' %}" width="60px" height="60px" class="d-inline-block " alt="">
+                 <span>Day28 .</span>
+              </a>
+
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+			  <ul class="navbar-nav ">
+				<li class="nav-item">
+				  <a class="nav-link active" aria-current="page" href="{% url 'show_home' %}">Home</a>
+				</li>
+				<li class="d-none d-md-block nav-item">
+				  <a class="nav-link" href="#">/</a>
+				</li>
+				<li class="nav-item">
+				  <a class="nav-link" href="{% url 'list_news' %}">Articles</a>
+				</li>
+
+
+                  {% if perms.news.can_edit_news %}
+                        <li class="d-none d-md-block nav-item">
+                            <a class="nav-link" href="#">/</a>
+                        </li>
+                    <li class="nav-item">
+				        <a class="nav-link" href="{% url 'upload' %}">Upload</a>
+				    </li>
+                  {% endif %}
+
+                   {% if perms.news.can_upload_news %}
+                    <li class="nav-item">
+				        <a class="d-none d-md-block nav-link" href="#">/</a>
+				    </li>
+                    <li class="nav-item">
+				        <a class="nav-link" href="{% url 'view' %}">Edit</a>
+				    </li>
+                  {% endif %}
+
+ 				<li class="d-none d-md-block nav-item">
+				  <a class="nav-link" href="#">/</a>
+				</li>
+
+				  <li class="nav-item">
+				  <a class="nav-link" href="{% url 'account' %}">Account</a>
+				</li>
+
+
+                 <li class="nav-item">
+                     <div class="form-inline">
+                  {% if user.is_authenticated %}
+                         <a href="{% url 'logout' %}">
+                             <button type="button" class="btn btn-outline-warning ">Logout</button> </a>
+                  {% else %}
+                    <a href="{% url 'login' %}">
+                    <button type="button" class="btn btn-outline-primary">Login</button>
+                    </a>
+                  {% endif %}
+                         </div>
+                 </li>
+
+			  </ul>
+			</div>
+		  </div>
+		</nav>
+	</div>
+
+  <div class="container">
+      {% block upload %}{% endblock upload %}
+  </div>
+
+  <!--footer -->
+  <div class="container-fluid container-footer  mt-5 pb-0 mb-0 justify-content-center  ">
+     <footer class="">
+         <div class="row   my-5 justify-content-center py-5">
+             <div class="col-11 ">
+                 <div class="row ">
+                     <div class="col-xl-8 col-md-4 col-sm-4 col-12 my-auto mx-auto a navbar-brand">
+                         <a href="{% url 'show_home' %}" class="text-decoration-none">
+                         <h3 class="text-muted mb-md-0 mb-5 bold-text">
+                             Day28 .</h3></a>
+                     </div>
+                     <div class="col-xl-2 col-md-4 col-sm-4 col-12 ">
+                         <h6 class="mb-3 mb-lg-4 bold-text "><b>Pages</b></h6>
+                         <ul class="list-unstyled">
+                             <li><a href="{% url 'show_home' %}" class="text-decoration-none text-white">Home</a></li>
+                             <li><a href="{% url 'list_news' %}" class="text-decoration-none text-white">News</a></li>
+                             <li><a href="{% url 'list_news' %}" class="text-decoration-none text-white">Articles</a></li>
+                             <li><a href="{% url 'show_home' %}" class="text-decoration-none text-white">About us</a></li>
+                         </ul>
+                     </div>
+                     <div class="col-xl-2 col-md-4 col-sm-4 col-12">
+                         <h6 class="mb-3 mb-lg-4 text-muted bold-text mt-sm-0 mt-5"><b>Location</b></h6>
+                         <p class="mb-1">India</p>
+
+                     </div>
+                 </div>
+                 <div class="row ">
+                     <div class="col-xl-8 col-md-4 col-sm-4 col-auto my-md-0 mt-5 order-sm-1 order-3 align-self-end">
+
+                         <p class="social text-muted mb-0 pb-0 bold-text"> <span class="mx-2"><i class="fa fa-facebook" aria-hidden="true"></i></span> <span class="mx-2"><i class="fa fa-linkedin-square" aria-hidden="true"></i></span> <span class="mx-2"><i class="fa fa-twitter" aria-hidden="true"></i></span> <span class="mx-2"><a  class="fa fa-instagram" aria-hidden="true"></a></span> </p><small class="rights"><span>&#174;</span>Day28 . -  All Rights Reserved.</small>
+
+                     </div>
+                     <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-1 align-self-end ">
+                         <h6 class="mt-55 mt-2 text-muted bold-text"><b>Email</b></h6><small> <span><i class="fa fa-envelope" aria-hidden="true"></i></span> test@gmail.com</small>
+                     </div>
+                     <!--
+                     <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-2 align-self-end mt-3 ">
+                         <h6 class="text-muted bold-text"><b>   </b></h6><small><span><i class="fa fa-envelope" aria-hidden="true"></i></span>  </small>
+                     </div>
+                     -->
+                 </div>
+             </div>
+         </div>
+     </footer>
+ </div>
+
+
+
+    <!-- Optional JavaScript; choose one of the two!-->
+
+    <!--Option 1: jQuery and Bootstrap Bundle (includes Popper)-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+    <script src="{% static 'js/main.js' %}"></script>
+
+    <!-- Option 2: jQuery, Popper.js, and Bootstrap JS
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    -->
+  </body>
+</html>

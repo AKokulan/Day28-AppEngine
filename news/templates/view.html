@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Day28 - View
+{% endblock title %}
+
+
+{% block upload %}
+<div class="row">
+  <div class="col-12 d-none d-md-block">
+    <table class="table table-bordered my-5">
+      <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">HEADER</th>
+            <th  scope="col">PRIORITY</th>
+            <th  scope="col">UPLOADED DATE & TIME</th>
+            <th  scope="col">UPLOADER'S IP ADDRESS</th>
+            <th  scope="col">ACTIVE NEWS?</th>
+            <th  scope="col">CAROUSEL NEWS?</th>
+            <th  scope="col">TRENDING NEWS?</th>
+            <th class="" scope="col">EDIT</th>
+            <th class="" scope="col">DELETE</th>
+        </tr>
+      </thead>
+
+        {% for article in all_articles %}
+          <tbody>
+            <tr>
+              <th scope="row">{{article.pk}}</th>
+              <td>{{article.article_header}}</td>
+              <td >{{article.article_priority}}</td>
+              <td  >{{article.article_uploaded_date_time}}</td>
+              <td >{{article.uploader_ip_address}}</td>
+
+              {% if article.active_news %}
+                <td ><label><input type="checkbox" value="" disabled checked></label></td>
+              {% else %}
+                <td ><label><input type="checkbox" value="" disabled ></label></td>
+              {% endif %}
+
+
+
+              {% if article.carousel_news %}
+                <td ><label><input type="checkbox" value="" disabled checked></label></td>
+              {% else %}
+                <td ><label><input type="checkbox" value="" disabled ></label></td>
+              {% endif %}
+
+
+
+              {% if article.trending_news %}
+                <td ><label><input type="checkbox" value="" disabled checked></label></td>
+              {% else %}
+                <td ><label><input type="checkbox" value="" disabled ></label></td>
+              {% endif %}
+                <td><a href="{% url 'edit' article.pk %}">EDIT</a></td>
+              <td><a href="{% url 'delete' article.pk %}">DEL</a></td>
+            </tr>
+          </tbody>
+        {% endfor %}
+    </table>
+
+
+  </div>
+  <div class="col-12 d-block d-md-none">
+    <table class="table table-bordered my-5">
+      <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">HEADER</th>
+            <th class="" scope="col">EDIT</th>
+            <th class="" scope="col">DELETE</th>
+        </tr>
+      </thead>
+
+        {% for article in all_articles %}
+          <tbody>
+            <tr>
+              <th scope="row">{{article.pk}}</th>
+              <td>{{article.article_header}}</td>
+              <td><a href="{% url 'edit' article.pk %}">EDIT</a></td>
+              <td><a href="{% url 'delete' article.pk %}">DEL</a></td>
+            </tr>
+          </tbody>
+        {% endfor %}
+    </table>
+
+
+  </div>
+</div>
+
+
+
+{% endblock upload %}

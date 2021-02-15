@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+Day28 - Home
+{% endblock title %}
+
+{% block upload %}
+    <!-- index page-->
+	<div class="container mt-3 px-0" >
+		<div class="row">
+            <!--main news-->
+			<div class="col-12 col-md-6 text-justify breaking-news ">
+				<h3 class="font-weight-bold">{{main_article_m.article_header|truncatewords:"12"}}</h3>
+				<!--show only on above md-->
+				<p class="d-none d-md-block">
+					{{main_article_m.article_body|truncatewords:"60" }}<a href="{% url 'show_news'%}?go={{main_article_m.pk }}&alt=article">Read...</a>
+				</p>
+				<!--show only on xs and md-->
+				<p class="d-block d-md-none">
+					{{main_article_m.article_body|truncatewords:"50" }}<a href="{% url 'show_news'%}?go={{main_article_m.pk }}&alt=article">Read...</a>
+				</p>
+
+
+				<img src="{% static main_article_m.image1|to_str_c %}" class="d-none d-md-block rounded main-image" alt="image">
+			</div>
+
+            <!--carousel news-->
+			<div id="demo" class="d-none d-md-block col-md-6 carousel slide rounded" data-ride="carousel">
+			  <!-- Indicators -->
+				<ul class="carousel-indicators bg-dark">
+				{% for c_art in carousel_article_m %}
+					{% if forloop.counter == 1 %}
+						<li data-target="#demo" data-slide-to="0" class="active"></li>
+					{% endif %}
+					{% if forloop.counter == 2 %}
+						<li data-target="#demo" data-slide-to="1"></li>
+					{% endif %}
+					{% if forloop.counter == 3 %}
+						<li data-target="#demo" data-slide-to="2"></li>
+					{% endif %}
+				{% endfor %}
+			  </ul>
+
+			  <!-- The slideshow -->
+			  <div class="carousel-inner">
+				  {% for c_art in carousel_article_m %}
+					  {% if forloop.counter == 1 %}
+						<div class="carousel-item active">
+						  <a href="{% url 'show_news'%}?go={{c_art.pk }}&alt=article">
+							  <img src="{% static c_art.image1|to_str_c %}" class="w-100 rounded" alt="image">
+						  </a>
+							<a>twesttwesttwesttwest</a>twest
+						</div>
+					  {% endif %}
+
+					  {% if forloop.counter == 2 %}
+						<div class="carousel-item">
+							<img src="{% static c_art.image1|to_str_c %}" class="w-100" alt="image">
+						</div>
+					  {% endif %}
+
+					  {% if forloop.counter == 3 %}
+						 <div class="carousel-item">
+							 <img src="{% static c_art.image1|to_str_c %}" class="img-responsive" alt="image">
+
+						</div>
+					  {% endif %}
+
+				  {% endfor %}
+			  </div>
+
+
+			  <!-- Left and right controls -->
+			  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+				<span class="carousel-control-prev-icon"></span>
+			  </a>
+			  <a class="carousel-control-next" href="#demo" data-slide="next">
+				<span class="carousel-control-next-icon"></span>
+			  </a>
+
+			</div>
+
+		</div>
+	</div>
+
+	<!-- news and add -->
+  	<div class="container mt-2">
+		<div class="row">
+			<!--important news and adds // only show in md and above-->
+			<div class="d-none d-md-block col-md-3 mt-3 mb-3 white-color  ">
+				<div class="row ml-1 ">
+
+					<div class="col-11 bg-light border border-primary text-justify pl-1 pr-0" style="font-size:12px;">
+						<p class="font-weight-bold text-dark ">Trending Articles </p>
+						<!--<hr class="font-weight-bold text-dark"> -->
+
+						<ul class="list-group">
+						{% for each in trending_article_m %}
+							{% if forloop.counter == 1%}
+								<li class="list-group-item"> <a href="" > {{ each.article_header|truncatewords:"8" }}</a> </li>
+							{% endif %}
+							{% if forloop.counter == 2 %}
+								<li class="list-group-item"> <a href="" > {{ each.article_header|truncatewords:"8" }}</a> </li>
+							{% endif %}
+							{% if forloop.counter == 3 %}
+								<li class="list-group-item"> <a href="" > {{ each.article_header|truncatewords:"8" }}</a> </li>
+							{% endif %}
+							{% if forloop.counter == 4 %}
+								<li class="list-group-item"> <a href="" > {{ each.article_header|truncatewords:"8" }}</a> </li>
+							{% endif %}
+							{% if forloop.counter == 5 %}
+								<li class="list-group-item"> <a href="" > {{ each.article_header|truncatewords:"8" }}</a> </li>
+							{% endif %}
+
+						{% endfor %}
+						</ul>
+					</div>
+
+				</div>
+			</div>
+
+			<!--news list -->
+			<div class="col-md-9 text-justify">
+				{% for each_art_m in all_article_m %}
+				 	<div class="row mt-3 rounded border border-primary text-justify ">
+					<div class="col-4 pl-0">
+
+						<img src="{% static each_art_m.image1|to_str_c %}" class="d-none d-md-block list-image" alt="New York">
+						<img src="{% static each_art_m.image1|to_str_c %}" class="d-block d-md-none list-image" alt="New York">
+					</div>
+
+					<!--only show in above md-->
+					<div class="d-none d-md-block col-8">
+						<h4 class="font-weight-bold">{{ each_art_m.article_header|truncatewords:"15" }}</h4>
+						<p>
+							{{ each_art_m.article_body|truncatewords:"15" }}<a href="{% url 'show_news'%}?go={{each_art_m.pk }}&alt=article">Read...</a>
+						</p>
+					</div>
+					<!--only show in above xs and sm-->
+					<div class="d-block d-md-none col-8">
+						<h5>
+							<a href="{% url 'show_news'%}?go={{each_art_m.pk }}&alt=article">
+								{{ each_art_m.article_header|truncatewords:"15" }} </a>
+						</h5>
+						<p>
+							{{ each_art_m.article_body|truncatewords:"4" }}<a href="{% url 'show_news'%}?go={{each_art_m.pk }}&alt=article">Read...</a>
+						</p>
+
+					</div>
+				</div>
+				{% endfor %}
+
+				<!-- pagination -->
+				<ul class="pagination mt-5 justify-content-center">
+
+					{% if all_article_m.has_previous  %}
+						<li class="page-item "><a class="page-link" href="?pg=1"><<</a></li>
+					{% endif %}
+
+					{% if all_article_m.number != 1 %}
+						<li class="page-item "><a class="page-link" href="?pg=1">1</a></li>
+					{% endif %}
+
+					<li class="page-item active"><a class="page-link" href="?pg={{ all_article_m.number }}">{{ all_article_m.number}} </a></li>
+
+					{% if all_article_m.has_next %}
+						<li class="page-item "><a class="page-link" href="?pg={{ all_article_m.next_page_number}}">{{ all_article_m.next_page_number}}</a></li>
+					{% endif %}
+
+					{% if all_article_m.next_page_number != all_article_m.paginator.num_pages %}
+						<li class="page-item "><a class="page-link" href="?pg={{ all_article_m.paginator.num_pages}}">{{ all_article_m.paginator.num_pages}}</a></li>
+					{% endif %}
+
+					<li class="page-item "><a class="page-link" href="?pg={{ all_article_m.paginator.num_pages}}">>></a></li>
+
+				</ul>
+
+
+			</div>
+			<div class="col-4"></div>
+		</div>
+	</div>
+
+
+
+
+{% endblock upload %}

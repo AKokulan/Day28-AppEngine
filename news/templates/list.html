@@ -1,0 +1,340 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Day28 - Articles
+{% endblock title %}
+
+{% block upload %}
+
+  	<!-- news body-->
+  	<div class="container mt-3">
+		<div class="row">
+			<!--filter-->
+			<div class="col-12 col-md-2 mt-4">
+				<form method="post" id="form1">
+					{%csrf_token %}
+
+					<!--filter - category-->
+					<div class="row">
+						<div class="col-12 border">
+							<!--only available in md and above-->
+							<div class="d-none d-md-block">
+								<h5 class="">Category</h5>
+								<hr class="">
+								<div  class="" >
+								<!--general category-->
+								<div class="form-group form-check">
+									<label class="form-check-label">
+										{% if filter_val.general%}
+											<input class="form-check-input bg-primary " type="checkbox" name="general"  checked>
+										{% else %}
+											<input class="form-check-input" type="checkbox" name="general"   >
+										{% endif %}
+										General
+									</label>
+								</div>
+								<!--technology category-->
+								<div class="form-group form-check">
+									<label class="form-check-label">
+										{% if filter_val.technology %}
+											<input class="form-check-input" type="checkbox" name="technology"  checked>
+										{% else %}
+											<input class="form-check-input" type="checkbox" name="technology"   >
+										{% endif %}
+										Technology
+
+									</label>
+
+								</div>
+								<!--political category-->
+								<div class="form-group form-check">
+									<label class="form-check-label">
+										{% if filter_val.politics%}
+											<input class="form-check-input" type="checkbox" name="politics"  checked>
+										{% else %}
+											<input class="form-check-input" type="checkbox" name="politics"   >
+										{% endif %}
+										Politics
+									</label>
+								</div>
+								<!--history category-->
+								<div class="form-group form-check">
+									<label class="form-check-label">
+										{% if filter_val.history%}
+											<input class="form-check-input" type="checkbox" name="history"  checked>
+										{% else %}
+											<input class="form-check-input" type="checkbox" name="history"   >
+										{% endif %}
+										History
+									</label>
+								</div>
+								<!--science category-->
+								<div class="form-group form-check">
+									<label class="form-check-label">
+										{% if filter_val.science%}
+											<input class="form-check-input" type="checkbox" name="science"  checked>
+										{% else %}
+											<input class="form-check-input" type="checkbox" name="science"   >
+										{% endif %}
+										Science
+									</label>
+								</div>
+								<!--aeronautics category-->
+								<div class="form-group form-check">
+									<label class="form-check-label">
+										{% if filter_val.aeronautics%}
+											<input class="form-check-input" type="checkbox" name="aeronautics"  checked>
+										{% else %}
+											<input class="form-check-input" type="checkbox" name="aeronautics"   >
+										{% endif %}
+										Aeronautics
+									</label>
+								</div>
+							</div>
+							</div>
+							<!--only available in xs and sm-->
+							<div class="d-block d-md-none">
+								<h5 class="d-block d-md-none"><a href="#category" data-toggle="collapse">Category</a></h5>
+								<div id="category"  class="collapse" >
+								<!--general category-->
+								<div class="form-group form-check">
+									<label class="form-check-label">
+										{% if filter_val.general1%}
+											<input class="form-check-input bg-primary " type="checkbox" name="general1"  checked>
+										{% else %}
+											<input class="form-check-input" type="checkbox" name="general1"   >
+										{% endif %}
+										General
+									</label>
+								</div>
+								<!--technology category-->
+								<div class="form-group form-check">
+									<label class="form-check-label">
+										{% if filter_val.technology1 %}
+											<input class="form-check-input" type="checkbox" name="technology1"  checked>
+										{% else %}
+											<input class="form-check-input" type="checkbox" name="technology1"   >
+										{% endif %}
+										Technology
+
+									</label>
+
+								</div>
+								<!--political category-->
+								<div class="form-group form-check">
+									<label class="form-check-label">
+										{% if filter_val.politics1%}
+											<input class="form-check-input" type="checkbox" name="politics1"  checked>
+										{% else %}
+											<input class="form-check-input" type="checkbox" name="politics1"   >
+										{% endif %}
+										Politics
+									</label>
+								</div>
+								<!--history category-->
+								<div class="form-group form-check">
+									<label class="form-check-label">
+										{% if filter_val.history1%}
+											<input class="form-check-input" type="checkbox" name="history1"  checked>
+										{% else %}
+											<input class="form-check-input" type="checkbox" name="history1"   >
+										{% endif %}
+										History
+									</label>
+								</div>
+								<!--science category-->
+								<div class="form-group form-check">
+									<label class="form-check-label">
+										{% if filter_val.science1%}
+											<input class="form-check-input" type="checkbox" name="science1"  checked>
+										{% else %}
+											<input class="form-check-input" type="checkbox" name="science1"   >
+										{% endif %}
+										Science
+									</label>
+								</div>
+								<!--aeronautics category-->
+								<div class="form-group form-check">
+									<label class="form-check-label">
+										{% if filter_val.aeronautics1%}
+											<input class="form-check-input" type="checkbox" name="aeronautics1"  checked>
+										{% else %}
+											<input class="form-check-input" type="checkbox" name="aeronautics1"   >
+										{% endif %}
+										Aeronautics
+									</label>
+								</div>
+							</div>
+							</div>
+
+
+						</div>
+					</div>
+
+					<!--filter - sort-->
+					<div class="row mt-3">
+						<div class="col-12 border">
+							<div class="d-none d-md-block">
+								<h5 class="d-none d-md-block">Sort</h5>
+								<hr class="d-none d-md-block">
+								<div id="" class="" >
+								<div class="form-group form-check">
+									<label class="form-check-label">
+										{% if filter_val.date%}
+											<input class="form-check-input bg-primary " type="checkbox" name="date"  checked>
+										{% else %}
+											<input class="form-check-input" type="checkbox" name="date"   >
+										{% endif %}
+										Date
+									</label>
+								</div>
+								<div class="form-group form-check">
+									<label class="form-check-label">
+										{% if filter_val.popularity %}
+											<input class="form-check-input" type="checkbox" name="popularity"  checked>
+										{% else %}
+											<input class="form-check-input" type="checkbox" name="popularity"   >
+										{% endif %}
+										Popularity
+									</label>
+								</div>
+							</div>
+							</div>
+							<div class="d-block d-md-none">
+								<h5 class="d-block d-md-none"><a href="#sort" data-toggle="collapse">Sort</a></h5>
+								<div id="sort" class="collapse" >
+								<div class="form-group form-check">
+									<label class="form-check-label">
+										{% if filter_val.date1 %}
+											<input class="form-check-input bg-primary " type="checkbox" name="date1"  checked>
+										{% else %}
+											<input class="form-check-input" type="checkbox" name="date1"   >
+										{% endif %}
+										Date
+									</label>
+								</div>
+								<div class="form-group form-check">
+									<label class="form-check-label">
+										{% if filter_val.popularity1 %}
+											<input class="form-check-input" type="checkbox" name="popularity1"  checked>
+										{% else %}
+											<input class="form-check-input" type="checkbox" name="popularity1"   >
+										{% endif %}
+										Popularity
+									</label>
+								</div>
+							</div>
+							</div>
+
+						</div>
+					</div>
+
+				</form>
+			</div>
+			<!--news-->
+			<div class="col-12 col-md-10 mt-4 text-justify px-0">
+
+				{% for article in all_article_m %}
+				{% if forloop.counter == 1 %}
+				<div class="row  mx-1  rounded border  white-color ">
+
+					<div class="col-4 pl-0">
+						<img src="{% static article.image1|to_str_c %}" class="list-image " alt="image">
+					</div>
+					<div class="col-8">
+
+						<h5 class="d-none d-md-block font-weight-bold">{{ article.article_header|truncatewords:"12" }}</h5>
+						<h6 class="d-block d-md-none font-weight-bold">
+							<a href="{% url 'show_news'%}?go={{article.pk }}&alt=article">
+								{{ article.article_header|truncatewords:"12" }}
+							</a>
+						</h6>
+
+						<p class="d-none d-md-block text-justify">
+							{{ article.article_body|truncatewords:"15" }}..<a href="{% url 'show_news'%}?go={{article.pk }}&alt=article">Read..</a>
+
+						</p>
+						<p class="text-right">
+							<i>views: {{ article.article_views }} - </i>
+							<i>{{ article.article_uploaded_date_time| date:"d M Y"}} - </i>
+							<i>{{ article.article_category }}</i>
+						</p>
+
+					</div>
+				</div>
+				{% else %}
+				<div class="row  mx-1 my-3 rounded border  white-color">
+
+					<div class="col-4 pl-0">
+
+						<img src="{% static article.image1|to_str_c %}" class="list-image" alt="image">
+					</div>
+					<div class="col-8">
+
+						<h5 class="d-none d-md-block font-weight-bold">{{ article.article_header|truncatewords:"12" }}</h5>
+						<h6 class="d-block d-md-none font-weight-bold">
+							<a href="{% url 'show_news'%}?go={{article.pk }}&alt=article">
+								{{ article.article_header|truncatewords:"12" }}
+							</a>
+						</h6>
+						<p class="d-none d-md-block text-justify">
+							{{ article.article_body|truncatewords:"15" }}..
+							<a href="{% url 'show_news'%}?go={{article.pk }}&alt=article">Read..</a>
+
+						</p>
+						<p class="text-right">
+							<i>views: {{ article.article_views }} - </i>
+							<i>{{ article.article_uploaded_date_time| date:"d M Y"}} - </i>
+							<i>{{ article.article_category }}</i>
+						</p>
+
+					</div>
+				</div>
+				{% endif %}
+
+				{% endfor %}
+
+				<!--  pagination -->
+				<ul class="pagination mt-5 justify-content-center">
+					{% if all_article_m.has_previous  %}
+						<li class="page-item "><a class="page-link" href="?pg={{ all_article_m.previous_page_number }}"><<</a></li>
+					{% endif %}
+					{% if all_article_m.number != 1 %}
+						<li class="page-item "><a class="page-link" href="?pg=1">1</a></li>
+					{% endif %}
+					{% if all_article_m.has_previous  %}
+						{% if all_article_m.previous_page_number != 1 %}
+							<li class="page-item "><a class="page-link" href="?pg={{ all_article_m.previous_page_number }}">{{ all_article_m.previous_page_number }}</a></li>
+						{% endif %}
+					{% endif %}
+					<li class="page-item active"><a class="page-link" href="?pg={{ all_article_m.number }}">{{ all_article_m.number}}</a></li>
+					{% if all_article_m.has_next  %}
+						<li class="page-item "><a class="page-link" href="?pg={{ all_article_m.next_page_number }}">{{ all_article_m.next_page_number }}</a></li>
+					{% endif %}
+
+					{% if all_article_m.next_page_number != all_article_m.paginator.num_pages %}
+						{% if all_article_m.next_page_number %}
+							<li class="page-item "><a class="page-link" href="?pg={{ all_article_m.next_page_number }}">{{ all_article_m.paginator.num_pages}}</a></li>
+						{% endif %}
+					{% endif %}
+
+					{% if all_article_m.has_next  %}
+						<li class="page-item "><a class="page-link" href="?pg={{ all_article_m.next_page_number }}">>></a></li>
+					{% else %}
+						<li class="page-item "><a class="page-link" href="?pg={{ all_article_m.number }}">>></a></li>
+					{% endif %}
+				</ul>
+
+
+			</div>
+
+
+		</div>
+	</div>
+
+
+
+
+{% endblock upload %}
